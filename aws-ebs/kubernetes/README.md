@@ -45,3 +45,47 @@ The recommended approach is to add the above policy to the EC2 instance roles. I
 ```
 kubectl apply -f csi-driver-deployments/aws-ebs/kubernetes/$VERSION
 ```
+
+## Using the Driver
+
+### An example with a dynamically provisioned volume
+
+1) Deploy Kubernetes manifests from `example-dynamic/`:
+
+```
+kubectl apply -f csi-driver-deployments/aws-ebs/kubernetes/example-dynamic
+```
+
+### An example with a pre-provisioned volume
+
+1) Create a new EBS volume or use an existing one in the same AZ where a Kubelet node is running.
+
+1) Substitute `__REPLACE_ME__` in `example-pre-provisioned/pv.yaml` with the volume ID from above:
+
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pre-provisioned
+  annotations:
+    pv.kubernetes.io/provisioned-by: ebs.csi.aws.com
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  csi:
+    driver: ebs.csi.aws.com
+    fsType: ext4
+    volumeHandle: __REPLACE_ME__
+  claimRef:
+    namespace: default
+    name: pre-provisioned
+  persistentVolumeReclaimPolicy: Retain
+```
+
+1) Deploy Kubernetes manifests from `example-pre-provisioned/`:
+
+```
+kubectl apply -f csi-driver-deployments/aws-ebs/kubernetes/example-dynamic
+```

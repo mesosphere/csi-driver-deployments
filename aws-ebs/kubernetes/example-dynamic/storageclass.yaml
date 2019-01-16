@@ -1,0 +1,12 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: ebs-gp2
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: ebs.csi.aws.com
+volumeBindingMode: WaitForFirstConsumer
+parameters:
+  type: gp2 #gp2, io1, sc1, st1 - io1 requires 'iopsPerGB' to be set
+  fsType: ext4 # ext4, ext3, ext2
+  encrypted: "false"  # false/true

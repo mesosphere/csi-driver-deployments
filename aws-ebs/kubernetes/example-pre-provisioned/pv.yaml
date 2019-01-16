@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pre-provisioned
+  annotations:
+    pv.kubernetes.io/provisioned-by: ebs.csi.aws.com
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  csi:
+    driver: ebs.csi.aws.com
+    fsType: ext4
+    volumeHandle: __REPLACE_ME__
+  claimRef:
+    namespace: default
+    name: pre-provisioned
+  persistentVolumeReclaimPolicy: Retain
+
