@@ -40,7 +40,7 @@ wget https://github.com/mesosphere/csi-driver-deployments/archive/master.zip -O 
 
 The recommended approach is to add the above policy to the EC2 instance roles. If that cannot be done, modify the `secrets.yaml` with `key_id`, `access_key` and optionally `session_token` credentials for a IAM user that does have this policy.
 
-3) Deploy the Kubernetes manifests in your cluster (replace `$VERSION` with the desired version):
+3) Deploy the Kubernetes manifests in your cluster (replace `$VERSION` with the desired version, with `latest/` always containing the `amazon/aws-ebs-csi-driver:latest` image):
 
 ```
 kubectl apply -f csi-driver-deployments/aws-ebs/kubernetes/$VERSION
