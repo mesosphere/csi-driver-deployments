@@ -7,7 +7,9 @@ Project page: [aws-ebs-csi-driver](https://github.com/kubernetes-sigs/aws-ebs-cs
 1) Download this repository to a machine that has `kubectl` access to your Kubernetes cluster(s):
 
 ```
-wget https://github.com/mesosphere/csi-driver-deployments/archive/master.zip -O csi-driver-deployments.zip; unzip csi-driver-deployments.zip; rm csi-driver-deployments.zip
+wget https://github.com/mesosphere/csi-driver-deployments/archive/master.zip -O csi-driver-deployments.zip
+unzip csi-driver-deployments.zip && rm csi-driver-deployments.zip
+cd csi-driver-deployments/aws-ebs/kubernetes
 ```
 
 2) The CSI driver requires access to the AWS API, below is a sample IAM policy that can be used to grant the driver required permissions.
@@ -43,7 +45,7 @@ The recommended approach is to add the above policy to the EC2 instance roles. I
 3) Deploy the Kubernetes manifests in your cluster (replace `$VERSION` with the desired version, with `latest/` always containing the `amazon/aws-ebs-csi-driver:latest` image):
 
 ```
-kubectl apply -f csi-driver-deployments/aws-ebs/kubernetes/$VERSION
+kubectl apply -f $VERSION
 ```
 
 ## Using the Driver
@@ -53,7 +55,7 @@ kubectl apply -f csi-driver-deployments/aws-ebs/kubernetes/$VERSION
 1) Deploy Kubernetes manifests from `example-dynamic/`:
 
 ```
-kubectl apply -f csi-driver-deployments/aws-ebs/kubernetes/example-dynamic
+kubectl apply -f example-dynamic/
 ```
 
 ### An example with a pre-provisioned volume
@@ -87,5 +89,5 @@ spec:
 1) Deploy Kubernetes manifests from `example-pre-provisioned/`:
 
 ```
-kubectl apply -f csi-driver-deployments/aws-ebs/kubernetes/example-dynamic
+kubectl apply -f example-pre-provisioned/
 ```
