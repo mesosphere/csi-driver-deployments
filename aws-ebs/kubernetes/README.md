@@ -9,7 +9,7 @@ Project page: [aws-ebs-csi-driver](https://github.com/kubernetes-sigs/aws-ebs-cs
 ```
 wget https://github.com/mesosphere/csi-driver-deployments/archive/master.zip -O csi-driver-deployments.zip
 unzip csi-driver-deployments.zip && rm csi-driver-deployments.zip
-cd csi-driver-deployments/aws-ebs/kubernetes
+cd csi-driver-deployments-master/aws-ebs/kubernetes
 ```
 
 2) The CSI driver requires access to the AWS API, below is a sample IAM policy that can be used to grant the driver required permissions.
