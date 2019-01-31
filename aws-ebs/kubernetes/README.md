@@ -2,6 +2,12 @@
 
 Project page: [aws-ebs-csi-driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
 
+## Prerequisites
+
+- A Kubernetes v1.13+ cluster
+- Access to `kubectl` connected to your Kubernetes cluster(s)
+- `wget` utility installed in your environment
+
 ## Setup
 
 1) Download this repository to a machine that has `kubectl` access to your Kubernetes cluster(s):
@@ -14,7 +20,7 @@ cd csi-driver-deployments-master/aws-ebs/kubernetes
 
 2) The CSI driver requires access to the AWS API, below is a sample IAM policy that can be used to grant the driver required permissions.
 
-```
+```json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -62,9 +68,9 @@ kubectl apply -f example-dynamic/
 
 1) Create a new EBS volume or use an existing one in the same AZ where a Kubelet node is running.
 
-1) Substitute `__REPLACE_ME__` in `example-pre-provisioned/pv.yaml` with the volume ID from above:
+2) Substitute `__REPLACE_ME__` in `example-pre-provisioned/pv.yaml` with the volume ID from above:
 
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -86,7 +92,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
 ```
 
-1) Deploy Kubernetes manifests from `example-pre-provisioned/`:
+3) Deploy Kubernetes manifests from `example-pre-provisioned/`:
 
 ```
 kubectl apply -f example-pre-provisioned/
