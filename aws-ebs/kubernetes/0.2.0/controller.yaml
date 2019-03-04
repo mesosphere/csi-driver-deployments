@@ -132,7 +132,6 @@ spec:
       containers:
         - name: ebs-plugin
           image: amazon/aws-ebs-csi-driver:0.2.0
-          imagePullPolicy: Always
           args :
             - --endpoint=$(CSI_ENDPOINT)
             - --logtostderr
@@ -158,8 +157,19 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
+          ports:
+            - name: healthz
+              containerPort: 9808
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: healthz
+            initialDelaySeconds: 10
+            timeoutSeconds: 3
+            periodSeconds: 10
+            failureThreshold: 5
         - name: cluster-driver-registrar
-          imagePullPolicy: Always
           image: quay.io/k8scsi/csi-cluster-driver-registrar:v1.0.1
           args:
             - --csi-address=$(ADDRESS)
@@ -173,7 +183,6 @@ spec:
               mountPath: /csi
         - name: csi-provisioner
           image: quay.io/k8scsi/csi-provisioner:v1.0.1
-          imagePullPolicy: Always
           args:
             - --provisioner=ebs.csi.aws.com
             - --csi-address=$(ADDRESS)
@@ -187,7 +196,6 @@ spec:
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: csi-attacher
           image: quay.io/k8scsi/csi-attacher:v1.0.1
-          imagePullPolicy: Always
           args:
             - --csi-address=$(ADDRESS)
             - --v=5
@@ -197,6 +205,14 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
+        - name: liveness-probe
+          image: quay.io/k8scsi/livenessprobe:v1.0.1
+          args:
+            - --csi-address=/csi/csi.sock
+            - --connection-timeout=3s
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
       volumes:
         - name: socket-dir
           emptyDir: {}
