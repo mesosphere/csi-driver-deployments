@@ -8,6 +8,14 @@ Project page: [aws-ebs-csi-driver](https://github.com/kubernetes-sigs/aws-ebs-cs
 - Access to `kubectl` connected to your Kubernetes cluster(s)
 - `wget` utility installed in your environment
 
+## Kubernetes Version Compability Matrix
+
+| AWS EBS CSI Driver \ Kubernetes Version| v1.13 | v1.14 |
+|----------------------------------------|-------|-------|
+| latest                                 | no    | yes   |
+| v0.3.0                                 | yes   | no    |
+| v0.2.0                                 | yes   | no    |
+
 ## Setup
 
 1) Download this repository to a machine that has `kubectl` access to your Kubernetes cluster(s):
