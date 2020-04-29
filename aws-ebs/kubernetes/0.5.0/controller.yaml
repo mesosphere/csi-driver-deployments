@@ -24,7 +24,7 @@ spec:
           operator: Exists
       containers:
         - name: ebs-plugin
-          image: amazon/aws-ebs-csi-driver:latest
+          image: amazon/aws-ebs-csi-driver:v0.5.0
           args :
           # - {all,controller,node} # specify the driver mode
             - --endpoint=$(CSI_ENDPOINT)
