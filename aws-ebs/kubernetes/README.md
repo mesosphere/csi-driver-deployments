@@ -13,6 +13,7 @@ Project page: [aws-ebs-csi-driver](https://github.com/kubernetes-sigs/aws-ebs-cs
 | AWS EBS CSI Driver \ Kubernetes Version| v1.13 | v1.14 |
 |----------------------------------------|-------|-------|
 | latest                                 | no    | yes   |
+| v0.5.0                                 | no    | yes   |
 | v0.3.0                                 | yes   | no    |
 | v0.2.0                                 | yes   | no    |
 
