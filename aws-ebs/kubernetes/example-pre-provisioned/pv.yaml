@@ -4,6 +4,8 @@ metadata:
   name: pre-provisioned
   annotations:
     pv.kubernetes.io/provisioned-by: ebs.csi.aws.com
+  labels:
+    topology.kubernetes.io/zone: us-east-1b #change this if your aws zone is different 
 spec:
   accessModes:
     - ReadWriteOnce
